@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -8,7 +9,7 @@ const authRoute = require("./routes/auth");
 const updateUserSettingsRoute = require("./routes/update-user-settings");
 const productRoute = require("./routes/products");
 const orderRoute = require("./routes/order");
-const path = require("path");
+
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -60,7 +61,7 @@ app.use(
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", `${process.env.SERVER}`);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
