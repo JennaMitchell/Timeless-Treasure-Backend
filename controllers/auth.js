@@ -31,7 +31,7 @@ exports.signup = async (req, res, next) => {
 
     const result = await newUser.save();
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "User created!",
       userId: result._id,
       status: 201,
