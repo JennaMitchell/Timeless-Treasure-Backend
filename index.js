@@ -48,6 +48,7 @@ mongoose.connect(process.env.MONGO_URL).catch((err) => {
 });
 
 app.use(bodyParser.json());
+
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image"),
   (req, res, next) => {
@@ -56,6 +57,15 @@ app.use(
 );
 // image is the inputName of the incoming file
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.get("/", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      name: "Loaded Timeless Treasure",
+      version: "0.1.0",
+    },
+  });
+});
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", `*`);
@@ -67,7 +77,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/");
 app.use(express.json());
 
 app.use("/auth", authRoute);
