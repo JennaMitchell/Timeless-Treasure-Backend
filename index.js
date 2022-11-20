@@ -67,7 +67,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static("/"));
+app.get("/");
 app.use(express.json());
 
 app.use("/auth", authRoute);
