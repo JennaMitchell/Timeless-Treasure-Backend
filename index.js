@@ -57,15 +57,6 @@ app.use(
 );
 // image is the inputName of the incoming file
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-    data: {
-      name: "Loaded Timeless Treasure",
-      version: "0.1.0",
-    },
-  });
-});
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", `*`);
@@ -85,6 +76,15 @@ app.use("/user", updateUserSettingsRoute);
 app.use("/product", productRoute);
 app.use("/order", orderRoute);
 
+app.get("/", (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      name: "Loaded Timeless Treasure",
+      version: "0.1.0",
+    },
+  });
+});
 const server = app.listen(process.env.PORT || 8080, () => {});
 const io = require("./socket/socket").init(server);
 
