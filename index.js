@@ -67,8 +67,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static("/"));
 app.use(express.json());
-app.get("/");
+
 app.use("/auth", authRoute);
 
 app.use("/user", updateUserSettingsRoute);
