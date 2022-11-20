@@ -40,15 +40,12 @@ const fileFilter = (req, file, cb) => {
 app.use(cors());
 app.use(helmet());
 app.use(compression());
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {})
-  .catch((err) => {
-    res.status(401).json({
-      message: `Server Error!`,
-      error: [{ error: "Server Not Connected" }],
-    });
+mongoose.connect(process.env.MONGO_URL).catch((err) => {
+  res.status(401).json({
+    message: `Server Error!`,
+    error: [{ error: "Server Not Connected" }],
   });
+});
 
 app.use(bodyParser.json());
 app.use(
@@ -61,7 +58,7 @@ app.use(
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", `${process.env.SERVER}`);
+  res.setHeader("Access-Control-Allow-Origin", `*`);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
@@ -71,6 +68,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.get("/");
 app.use("/auth", authRoute);
 
 app.use("/user", updateUserSettingsRoute);
