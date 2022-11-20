@@ -85,7 +85,7 @@ app.use("/user", updateUserSettingsRoute);
 app.use("/product", productRoute);
 app.use("/order", orderRoute);
 
-const server = app.listen(process.env.PORT || 80, () => {});
+const server = app.listen(process.env.PORT || 8080, () => {});
 const io = require("./socket/socket").init(server);
 
 io.on("connection", (socket) => {});
